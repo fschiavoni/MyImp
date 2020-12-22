@@ -66,10 +66,6 @@ function createPrinterItem(printer) {
  `;
 }
 
-function cogeGrupos(id) {
-  return Pmgr.globalState.groups.filter(n => n.printers.includes(id) && n.printers.length > 0);
-}
-
 function createPrinterItemAUX(printer) {
   const rid = 'x_' + Math.floor(Math.random() * 1000000);
   const hid = 'h_' + rid;
@@ -90,11 +86,14 @@ function createPrinterItemAUX(printer) {
   ).join(" ");
 
 
-  let listaGrupos = cogeGrupos(printer.id);
+  // PROFE: muevo aquí, usando sólo includes
+  let listaGrupos = Pmgr.globalState.groups.filter(n => n.printers.includes(printer.id));
 
   let allGroups = listaGrupos.map(n =>
-    `<span class="badge badge-primary">${n.name}</span>`
+    `<span class="badge badge-primary removegroup data-pid=${printer.id} data-gid=${n.id}">${n.name}</span>`
   ).join(" ");
+  // PROFE: para convertirlo en botón vía
+  allGroups += ` <span class="badge badge-primary addgroup" data-pid=${printer.id}>+</span>`;
 
   return `
     <tr>
@@ -104,22 +103,22 @@ function createPrinterItemAUX(printer) {
 
       <td class="alias">${printer.alias}</td>
       <td>
-        <span>${printer.model}</span>
-        <button class="btn"  name="editModel"> 🖉 </button>
+          <span>${printer.model}</span>
+          <button class="btn"  name="editModel"> 🖉 </button>
       </td>
 
       <td>
-        <span>${printer.location}</span>
+      <span>${printer.location}</span>
         <button class="btn"  name="editLocation"> 🖉 </button>
       </td>
 
       <td>
-        <span>${printer.ip}</span>
+      <span>${printer.ip}</span>
         <button class="btn"  name="editIP"> 🖉 </button>
       </td>
 
       <td>
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="badge badge-pill badge-info"> + ${printer.queue.length} </span> 
           <span class="badge badge-primary">${printer.queue[0]}</span>
         </button>
@@ -137,7 +136,7 @@ function createPrinterItemAUX(printer) {
 
         <button class="btn btn-default dropdown-toggle" type="button" id=${rid} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="badge badge-pill badge-info"> + ${listaGrupos.length} </span>  
-          <span class="badge badge-primary">${listaGrupos[0].name}</span>
+          <span class="badge badge-primary">${listaGrupos.length > 0 ? listaGrupos[0].name : "(no agrupada)"}</span>
         </button>
 
         <div class="dropdown-menu" aria-labelledby=${rid}>
@@ -223,69 +222,6 @@ function createGroupItem(group) {
  `;
 }
 
-// funcion para generar datos de ejemplo: impresoras, grupos, trabajos, ...
-// se puede no-usar, o modificar libremente
-async function populate(minPrinters, maxPrinters, minGroups, maxGroups, jobCount) {
-  const U = Pmgr.Util;
-
-  // genera datos de ejemplo
-  minPrinters = minPrinters || 10;
-  maxPrinters = maxPrinters || 20;
-  minGroups = minGroups || 1;
-  maxGroups = maxGroups || 3;
-  jobCount = jobCount || 100;
-  let lastId = 0;
-
-  let printers = U.fill(U.randomInRange(minPrinters, maxPrinters),
-    () => U.randomPrinter(lastId++));
-
-  let groups = U.fill(U.randomInRange(minPrinters, maxPrinters),
-    () => U.randomGroup(lastId++, printers, 50));
-
-  let jobs = [];
-  for (let i = 0; i < jobCount; i++) {
-    let p = U.randomChoice(printers);
-    let j = new Pmgr.Job(lastId++,
-      p.id,
-      [
-        U.randomChoice([
-          "Alice", "Bob", "Carol", "Daryl", "Eduardo", "Facundo", "Gloria", "Humberto"]),
-        U.randomChoice([
-          "Fernández", "García", "Pérez", "Giménez", "Hervás", "Haya", "McEnroe"]),
-        U.randomChoice([
-          "López", "Gutiérrez", "Pérez", "del Oso", "Anzúa", "Báñez", "Harris"]),
-      ].join(" "),
-      U.randomString() + ".pdf");
-    p.queue.push(j.id);
-    jobs.push(j);
-  }
-
-  if (Pmgr.globalState.token) {
-    console.log("Updating server with all-new data");
-
-    // FIXME: remove old data
-    // FIXME: prepare update-tasks
-    let tasks = [];
-    for (let t of tasks) {
-      try {
-        console.log("Starting a task ...");
-        await t().then(console.log("task finished!"));
-      } catch (e) {
-        console.log("ABORTED DUE TO ", e);
-      }
-    }
-  } else {
-    console.log("Local update - not connected to server");
-    Pmgr.updateState({
-      jobs: jobs,
-      printers: printers,
-      groups: groups
-    });
-  }
-}
-
-
-
 // funcion de actualización de ejemplo. Llámala para refrescar interfaz
 function update() {
   try {
@@ -293,7 +229,7 @@ function update() {
     $("#trGroups").empty();
     $("#trJobs").empty();
 
-    Pmgr.list();
+    // PROFE: elimino el "Pmgr.list", porque hace una petición innecesaria
     Pmgr.globalState.groups.forEach(m => $("#trGroups").append(createGroupItem(m)));
     Pmgr.globalState.jobs.forEach(m => $("#trJobs").append(createJobItem(m)));
     Pmgr.globalState.printers.forEach(m => $("#trPrinters").append(createPrinterItemAUX(m)));
@@ -310,6 +246,13 @@ function update() {
     (select) => Pmgr.globalState.printers.forEach(m =>
       select.append(`<option value="${m.id}">${m.alias}</option>`))
   );
+
+    
+  // PROFE: ahora solo muestra por consola, pero lo suyo seria mostrar aqui un modal para editar grupos de la impresora 
+  $("span.addgroup").click(e => { 
+    const pid = $(e.target).attr("data-pid")
+    console.log("ahora editaria grupos de ", pid);
+  });
 }
 
 
@@ -348,15 +291,17 @@ $(function () {
   Pmgr.connect(serverUrl);
 
   // ejemplo de login
-  Pmgr.login("gx", "xyz").then(d => {
+  // PROFE - ojo porque os estabais conectando a un id compartido
+  // os acabo de re-crear g4 / GrupoCuatro
+  Pmgr.login("g4", "GrupoCuatro").then(d => {
     if (d !== undefined) {
       update();
       console.log("login ok!");
-
     } else {
       console.log(`error en login (revisa la URL: ${serverUrl}, y verifica que está vivo)`);
       console.log("Generando datos de ejemplo para uso en local...")
-      populate();
+      // PROFE - esto ahora vive en pmgrapi.ja
+      Pmgr.populate();
       update();
     }
   });
@@ -365,36 +310,51 @@ $(function () {
 
 
 // cosas que exponemos para usarlas desde la consola
-window.populate = populate
+// PROFE - muy útil incluir update para poder llamar esto desde fuera mientras hacéis pruebas
+window.update = update
 window.Pmgr = Pmgr;
 window.createPrinterItem = createPrinterItem
 
+
 //--------------------------------------------------------IMPRESORAS--------------------------------------------------------->
 
+//Agregar impresora - hace referencia la modal añadirImpresora
+// PROFE: ojo, tambien he tocado el HTML para usar validación de navegador
+$('#añadirImpresora form').submit((e) => {
+    const div = $('#añadirImpresora');
+    let alias = div.find("input[name='inputAlias']").val();
+    let model = div.find("input[name='inputModel']").val();
+    let location = div.find("input[name='inputLocation']").val();
+    let ip = div.find("input[name='inputIp']").val();
 
-//Agregar impresora
-document.getElementById('añadirImpresora')//hace referencia la modal añadirImpresora
-  .addEventListener('click', function (e) {
-    const button = e.target;
-    var alias = document.getElementById("inputAlias").value;
-    var model = document.getElementById("inputModel").value;
-    var location = document.getElementById("inputLocation").value;
-    var ip = document.getElementById("inputIp").value;
+    // oculta el modal de forma programática
+    div.modal("hide");
 
-    if (button.name == 'btnAddPrinter') {
-      //var a = new Pmgr.Printer(1, alias, model, location);
-      var a = new Pmgr.Printer(1, alias, model, location, ip);
-      Pmgr.addPrinter(a);
+    // envía la petición
+    let o = {alias, model, location, ip};
+    Pmgr.addPrinter(o).then(d => {
+      if (d) {
+        // limpia el modal (para que no vuelva a aparecer con esos datos)
+        div.find("form")[0].reset();
+        // muestra nuevo estado de aplicación
+        update();
+        // todo añadido bien - enhorabuena!
+        $("#addImpresora").show().fadeOut(2000);
+      } else {
+        // el servidor ha dado fallo! - usad un diálogo para explicar qué ha fallado
+        $("#addImpresoraError").show().fadeOut(2000);
+      }
+    })
+    // esto evita que el formulario se envíe de la forma tradicional
+    return false;
+})
 
-      var x = document.getElementById("addImpresora")
-      x.open = true;
-      setTimeout(function () {
-        x.open = false;
-      }, 3000);
-
-    }
-  })
-
+// PROFE - ejemplo de validación para ip
+$('input[name="inputIp"]').on('input propertychange paste', e =>  {
+  const o = $(e.target);
+  const ok = o.val() === "" || validateIp(o.val()); 
+  o[0].setCustomValidity(ok ? "" : "Eso no es una IP."); // PROFE - mejor algo menos agresivo
+});
 
 //Eliminar Impresoras
 document.getElementById('eliminarImpresora')//hace referencia modal 'eliminarImpresora'
@@ -413,7 +373,7 @@ document.getElementById('eliminarImpresora')//hace referencia modal 'eliminarImp
           if (Pmgr.globalState.printers[i].id == idPrinter)
             printer = Pmgr.globalState.printers[i];
         }
-        Pmgr.rmPrinter(printer.id);
+        Pmgr.rmPrinter(printer.id).then(update);
       });
 
       var x = document.getElementById("rmImpresora")
@@ -429,8 +389,9 @@ document.getElementById('eliminarImpresora')//hace referencia modal 'eliminarImp
 
 
 //Modificar Impresora  
-document.getElementById('trPrinters').addEventListener('click', function (e) {//hace referencia a la tabla Impresoras
+$('#trPrinters').on('click', 'button', e => {
 
+  console.log(e);
   const button = e.target;
   const celda = button.parentNode;
   var printer;
