@@ -1,0 +1,352 @@
+/* usa este fichero para personalizar tus vistas */
+
+.msg {
+    font-size: 60%;
+}
+
+html{
+    background-color: #33618c;
+}
+
+body{
+    background-color: #33618c;
+    height: 100%;
+}
+
+.bodyLeeme{
+    color: lightgray;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+    background-color: rgba(51, 97, 140, 0.282);
+}
+
+.headerLeeme{
+    text-align: center;
+    size: 40px;
+    color: turquoise;
+    text-shadow: -1px 0 #414D68, 0 1px #414D68, 1px 0 #414D68, 0 -1px #414D68, -2px 2px 0 #414D68, 2px 2px 0 #414D68, 1px 1px #414D68, 2px 2px #414D68, 3px 3px #414D68, 4px 4px #414D68, 5px 5px #414D68;
+}
+.headerLeeme1{
+    text-align: start;
+    size: 40px;
+    color: blanchedalmond;
+    text-shadow: -1px 0 #414D68, 0 1px #414D68, 1px 0 #414D68, 0 -1px #414D68, -2px 2px 0 #414D68, 2px 2px 0 #414D68, 1px 1px #414D68, 2px 2px #414D68, 3px 3px #414D68, 4px 4px #414D68, 5px 5px #414D68;
+}
+
+.margins {
+    margin-bottom: 200px;
+}
+a{
+    text-decoration: none;
+}
+
+input[type=checkbox]{
+    transform: scale(2);
+    
+}
+
+
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 50vh;
+    overflow:auto;
+    }
+
+
+.table-wrapper-scroll-y {
+    display: block;
+   
+    }
+
+
+
+.contenedorBase {
+    display: flex;
+    flex-direction: column;
+    background-color: #02407A;
+    width: 100%;
+    height: 70%;
+    margin-top: 45px;
+}
+
+.superior{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 30%;
+    margin-bottom: -3px;
+    padding-bottom: -3px;
+}
+
+.botones{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right: 0%;
+    padding: 4px;
+    margin-left: 24%;
+    width: 4%;
+    height: 10%;
+    background-color: #0065C4;
+}
+
+.botonCerrar{
+    height:16px;
+    width:16px;
+    size: 16px 16px;
+}
+
+.botonMiniminzar{
+    height:16px;
+    width:16px;
+    size: 16px 16px;
+}
+
+.inferior{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 15%;
+    margin-bottom: 0%;
+    background-color: #B7DCFF;
+    height: 50px;
+}
+
+#botonAnadir{
+    background-color: rgb(99, 204, 103);
+    size: 80px 40px;
+    margin: 5px;
+    margin-right: 10px;
+    border-radius: 10%;
+   
+    
+}
+
+
+#botonBorrar{
+    background-color: #D41717;
+    size: 80px 40px;
+    margin: 5px;
+    margin-left: 10px;
+    border-radius: 10%;
+    
+}
+
+.id{
+    text-align: center;
+}
+
+#impresoras{
+    width: 100%;
+    margin-left: 5%;
+}
+
+table {
+    background-color: white;
+    
+}
+
+table td {
+    text-align: center;   
+ }
+
+table tr {
+    
+   min-height: 50px;
+   height: 50px;
+}
+
+
+.select-all {
+    padding: 30px;
+    padding-top: 0px;
+    padding-bottom: 15px;
+    color: white;
+   
+}
+
+.cabecera {
+    background-color: #72B4F1;
+    text-align: center;
+}
+
+.imprimiendo{
+    color: white;
+    background-color: rgb(99, 204, 103);
+}
+
+.sinTinta{
+    color: black;
+    margin: 2px;
+    
+}
+
+.botonGruposTrabajo{
+    display: none;
+    margin-bottom: 40px;
+}
+
+
+.botonImpresorasTrabajo{
+    display: none;
+    margin-bottom: 40px;
+
+}
+.opcion{
+    margin-right: 10px;
+}
+.opcionArriba{
+    margin-top: 40px;
+}
+.opcionBaja{
+    margin-bottom: 40px;
+}
+.enEspera{
+    color: white;
+    background-color: orange;
+}
+
+.fila{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: #72B4F1;
+}
+
+.em-warning{
+    margin-bottom: 8px;
+    
+}
+
+.titulo{
+    text-align: center;
+    border: 1px solid black;
+}
+
+.barraBuscar {
+    width: 80%;
+    height: 60%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.barraAbajo{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #02407A;
+}
+
+#myInputImp{
+    width: 65%;
+}
+
+#myInputJob{
+    width: 65%;
+}
+
+#myInputGrp{
+    width: 65%;
+}
+
+.pestañas{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    background-color: #0065C4;
+    height: 100%;
+    margin-top: 2%;
+    height: 80px;
+    text-decoration: none;
+}
+
+.pestaña{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 2px;
+
+    height: 100%;
+    font-family: 'Permanent Marker', cursive;
+    font-family: 'Righteous', cursive;
+    border: solid #02407A 1px;
+    text-decoration: none;
+}
+
+.pestaña:active,.pestaña::selection{
+    background-color: #72B4F1;
+    text-decoration: none;
+    padding-top: 3px;
+}
+
+.active{
+    background-color: #72B4F1;
+    text-decoration: none;
+    padding-top: 3px;
+}
+
+.pestaña:hover{
+    background-color: #72B4F1;
+    padding: 10px;
+    padding-left: 20px;
+    height: 100%;
+    padding-right: 20px;
+    text-decoration: none;
+}
+
+.dropdown-menu{
+    min-width: 220px;
+    max-height: 100px;
+    overflow: auto;
+  }
+
+  .dropdown-toggle{
+    background-color:none;
+  }
+
+.añadirImpresora{
+    margin-left: 50px;
+    float: right;
+    margin-bottom: 5px;
+}
+.añadirImpresoraText{
+    width:50%;
+    float:left;
+    margin-bottom: 10px;
+}
+
+.modificarImpresoraGrupo{
+    margin-left: 40px;
+}
+
+.añadirGrupoText{
+    width:50%;
+    float:left;
+    margin-bottom: 10px;
+}
+
+.añadirGrupo{
+    margin-left: 50px;
+    float: right;
+    margin-bottom: 5px;
+}
+
+.multiSelectImpresoras{
+    margin-left: 50px;
+    float: right;
+}
+
+
+.dialog{
+    
+    font-size:16px; 
+    background-color: #E1ECF4; 
+    border-color:#A7C5FA; 
+    font-weight: bold;
+}
