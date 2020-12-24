@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/custom.css">
 
-<!--  
+  <!--  
   <script src="jquery.min.js"></script>
   <script src="jquery.multiselect.js"></script> -->
 
@@ -42,18 +42,21 @@
         <div id="Impresoras" class="tab-pane fade show active">
 
           <div>
-            <dialog id="addImpresora" data-transition="fade" class="dialog">La Impresora ha sido agregada con exito!</dialog>
-            <dialog id="modImpresora" class="dialog" data-transition="fade" >La Impresora ha sido modificado con exito!</dialog>
-            <dialog id="rmImpresora" data-transition="fade" class="dialog">La Impresora ha sido eliminada satisfactoriamente</dialog>
+            <dialog id="addImpresora" data-transition="fade" class="dialog">La Impresora ha sido agregada con exito!
+            </dialog>
+            <dialog id="modImpresora" class="dialog" data-transition="fade">La Impresora ha sido modificado con exito!
+            </dialog>
+            <dialog id="rmImpresora" data-transition="fade" class="dialog">La Impresora ha sido eliminada
+              satisfactoriamente</dialog>
           </div>
 
-       
+
           <div class="barraAbajo"><input class="form-control barraBuscar" id="myInputImp" type="text"
               onkeyup="doSearchImp()" placeholder="Introducir palabra clave" aria-label="Search">
           </div>
 
           <div class="col-sm-16 table-wrapper-scroll-y my-custom-scrollbar">
-            
+
             <table class="table table-bordered table-hover datatable" id="imp">
               <thead>
                 <tr class="cabecera">
@@ -81,22 +84,23 @@
               data-target="#añadirImpresora">
               <i class="fas fa-plus"></i>
             </button>
-            <button type="button" id="botonBorrar" class="button-icon btn btn-danger push-button ButtonBorrarImpresoras" data-toggle="modal"
-              data-target="#eliminarImpresora">
+            <button type="button" id="botonBorrar" class="button-icon btn btn-danger push-button ButtonBorrarImpresoras"
+              data-toggle="modal" data-target="#eliminarImpresora">
               <i class="fas fa-minus button-icon"></i>
             </button>
           </div>
-         
+
         </div>
-      
+
         <!-- ---------------Trabajos ---------------------->
         <div id="Trabajos" class="tab-pane fade">
 
           <div>
 
-            <dialog id="modJob" class="dialog" data-transition="fade" >El trabajo ha sido modificado con exito!</dialog>
+            <dialog id="modJob" class="dialog" data-transition="fade">El trabajo ha sido modificado con exito!</dialog>
             <dialog id="addJob" data-transition="fade" class="dialog">El trabajo ha sido agregado con exito!</dialog>
-            <dialog id="rmJob" data-transition="fade" class="dialog">El trabajo ha sido eliminado satisfactoriamente</dialog>
+            <dialog id="rmJob" data-transition="fade" class="dialog">El trabajo ha sido eliminado satisfactoriamente
+            </dialog>
 
           </div>
           <div class="barraAbajo"><input class="form-control barraBuscar" id="myInputJob" type="text"
@@ -125,29 +129,30 @@
           <div class="inferior">
 
             <!-- button add  -->
-            <button type="button" id="btnAddWork" class="btn btn-success" data-toggle="modal" data-target="#añadirTrabajo">
+            <button type="button" id="btnAddWork" class="btn btn-success" data-toggle="modal"
+              data-target="#añadirTrabajo">
               <i class="fas fa-plus"></i>
             </button>
 
             <!-- button delete  -->
-            <button type="button" id="botonBorrar" class="button-icon btn btn-danger buttonBorrarTrabajo" data-toggle="modal"
-              data-target="#eliminarTrabajos">
+            <button type="button" id="botonBorrar" class="button-icon btn btn-danger buttonBorrarTrabajo"
+              data-toggle="modal" data-target="#eliminarTrabajos">
               <i class="fas fa-minus button-icon"></i>
             </button>
           </div>
           <dialog id="modTrabajo">Trabajo modificado</dialog>
         </div>
-        
+
         <!------------Grupos----------------------------------->
         <div id="Grupos" class="tab-pane fade">
           <div class="barraAbajo"><input class="form-control barraBuscar" id="myInputGrp" type="text"
               onkeyup="doSearchGroup()" placeholder="Introducir palabra clave" aria-label="Search">
           </div>
 
-          
+
           <div>
 
-            <dialog id="modGroup" class="dialog" data-transition="fade" >El grupo ha sido modificado con exito!</dialog>
+            <dialog id="modGroup" class="dialog" data-transition="fade">El grupo ha sido modificado con exito!</dialog>
             <dialog id="addGroup" data-transition="fade" class="dialog">El grupo ha sido agregado con exito!</dialog>
             <dialog id="rmGroup" data-transition="fade" class="dialog">El grupo ha sido eliminado satisfactoriamente</dialog>
 
@@ -183,8 +188,8 @@
             </button>
 
             <!-- button delete  -->
-            <button type="button" id="botonBorrar" name="deleteAll" class="button-icon btn btn-danger buttonBorrarGrupos"
-              data-toggle="modal" data-target="#eliminarGrupos">
+            <button type="button" id="botonBorrar" name="deleteAll"
+              class="button-icon btn btn-danger buttonBorrarGrupos" data-toggle="modal" data-target="#eliminarGrupos">
               <i class="fas fa-minus button-icon"></i>
             </button>
           </div>
@@ -193,46 +198,47 @@
     </div>
     <dialog id="modGrupo">Grupo modificado</dialog>
   </div>
-  
-<!---------------------------------------------------------MODAL IMPRESORAS----------------------------------------------->
+
+  <!---------------------------------------------------------MODAL IMPRESORAS----------------------------------------------->
   <!--      Modal impresora añadir impresora      -->
   <div class="modal fade" id="añadirImpresora" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header" >
+        <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Agregar impresora</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form id="impresoraForm"> <!-- meto un form, para usar validacion -->
+        <form id="impresoraForm">
+          <!-- meto un form, para usar validacion -->
           <div class="modal-body">
             <div class="form-group">
-              <div >
+              <div>
                 <span>Alias</span>
               </div>
-              <input name="inputAlias" class="form-control" type="text" required=""/>
+              <input name="inputAlias" class="form-control" type="text" required="" />
             </div>
 
             <div class="form-group">
-              <div >
+              <div>
                 <span>Modelo</span>
               </div>
-              <input name="inputModel"  class="form-control" type="text" required=""/>
+              <input name="inputModel" class="form-control" type="text" required="" />
             </div>
 
             <div class="form-group">
-              <div >
+              <div>
                 <span>Localización</span>
               </div>
-              <input name="inputLocation" class="form-control" type="text" required=""/>
+              <input name="inputLocation" class="form-control" type="text" required="" />
             </div>
             <div class="form-group">
-              <div >
+              <div>
                 <span>IP</span>
               </div>
-              <input name="inputIp" class="form-control" type="text"/>
+              <input name="inputIp" class="form-control" type="text" />
             </div>
 
           </div>
@@ -259,7 +265,8 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h5 class="modal-title" id="exampleModalLabel">¿Estas seguro de querer eliminar las impresoras seleccionadas?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">¿Estas seguro de querer eliminar las impresoras seleccionadas?
+          </h5>
           <div class="content-impresoras">
             <ul class="">
             </ul>
@@ -275,7 +282,7 @@
     </div>
   </div>
 
-   
+
 
 
   <!--    Modal eliminar impresora grupo             -->
@@ -310,7 +317,7 @@
     </div>
   </div>
 
-  
+
 
 
   <!-- Modal añadir impresora a grupo-->
@@ -345,9 +352,10 @@
   </div>
 
 
-<!---------------------------------------------------------MODAL TRABAJOS----------------------------------------------->
+  <!---------------------------------------------------------MODAL TRABAJOS----------------------------------------------->
   <!-- Modal añadir Trabajos -->
-  <div class="modal fade" id="añadirTrabajo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal fade" id="añadirTrabajo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
 
@@ -357,29 +365,29 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          
+
         </div>
 
         <div class="modal-body">
 
-          <div >
-            <div >
+          <div>
+            <div>
               <span>Trabajo</span>
             </div>
-            <input  id="inputName" type="file">
+            <input id="inputName" type="file">
           </div>
 
-          <div >
-            <div >
+          <div>
+            <div>
               <span>Propietario</span>
             </div>
-            <input  id="inputOwner" type="text">
+            <input id="inputOwner" type="text">
           </div>
 
           <div class="content-addJobs">
 
             <ul class="content-list">
- 
+
             </ul>
           </div>
 
@@ -396,8 +404,9 @@
 
 
 
-                                                  <!--Modal eliminar trabajos-->
-  <div class="modal fade" id="eliminarTrabajos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!--Modal eliminar trabajos-->
+  <div class="modal fade" id="eliminarTrabajos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
 
@@ -406,7 +415,8 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h5 class="modal-title" id="exampleModalLabel">¿Estas seguro de querer eliminar los trabajos seleccionados?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">¿Estas seguro de querer eliminar los trabajos seleccionados?
+          </h5>
           <div class="content-trabajos">
             <ul class="">
             </ul>
@@ -415,7 +425,7 @@
 
         <div class="modal-footer">
           <!-- button accept -->
-          <button type="button" class="btn btn-danger"  name="delete" data-dismiss="modal" >Aceptar</button>
+          <button type="button" class="btn btn-danger" name="delete" data-dismiss="modal">Aceptar</button>
           <!-- button cancel -->
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         </div>
@@ -425,8 +435,8 @@
   </div>
 
 
-<!---------------------------------------------------------MODAL GRUPOS----------------------------------------------->
-                                                <!--  Modal añadir grupo-->
+  <!---------------------------------------------------------MODAL GRUPOS----------------------------------------------->
+  <!--  Modal añadir grupo-->
   <div class="modal fade" id="añadirGrupo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -438,11 +448,11 @@
           </button>
         </div>
         <div class="modal-body">
-          <div >
-            <div >
+          <div>
+            <div>
               <span>Nombre del Grupo</span>
             </div>
-            <input  id="inputAddPrinter" type="text"></input>
+            <input id="inputAddPrinter" type="text"></input>
           </div>
         </div>
         <div class="modal-footer">
@@ -454,8 +464,8 @@
   </div>
 
 
-    <!--Modal eliminar Grupos-->
-    <div class="modal fade" id="eliminarGrupos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  <!--Modal eliminar Grupos-->
+  <div class="modal fade" id="eliminarGrupos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -467,7 +477,7 @@
           </button>
 
           <h5 class="modal-title" id="exampleModalLabel">¿Estas seguro de querer eliminar los grupos seleccionados?</h5>
-          
+
           <div class="content-groups">
             <ul class="">
             </ul>
@@ -478,7 +488,7 @@
           <!-- button accept -->
           <button type="button" class="btn btn-danger" name="delete" data-dismiss="modal">Aceptar</button>
           <!-- button cancel-->
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>        
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
     </div>
@@ -494,14 +504,14 @@
   <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap.min.js"></script>
   <script src="https://cdn.datatables.net/scroller/2.0.3/js/dataTables.scroller.min.js"></script>
-  
+
   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
 
   <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 
   <script src="js/bootstrap.bundle.js"></script>
-  
-<!--
+
+  <!--
   <script>
     $('.datatable').DataTable();
   </script>

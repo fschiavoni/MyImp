@@ -247,9 +247,9 @@ function update() {
       select.append(`<option value="${m.id}">${m.alias}</option>`))
   );
 
-    
+
   // PROFE: ahora solo muestra por consola, pero lo suyo seria mostrar aqui un modal para editar grupos de la impresora 
-  $("span.addgroup").click(e => { 
+  $("span.addgroup").click(e => {
     const pid = $(e.target).attr("data-pid")
     console.log("ahora editaria grupos de ", pid);
   });
@@ -321,40 +321,41 @@ window.createPrinterItem = createPrinterItem
 //Agregar impresora - hace referencia la modal añadirImpresora
 // PROFE: ojo, tambien he tocado el HTML para usar validación de navegador
 $('#añadirImpresora form').submit((e) => {
-    const div = $('#añadirImpresora');
-    let alias = div.find("input[name='inputAlias']").val();
-    let model = div.find("input[name='inputModel']").val();
-    let location = div.find("input[name='inputLocation']").val();
-    let ip = div.find("input[name='inputIp']").val();
+  const div = $('#añadirImpresora');
+  let alias = div.find("input[name='inputAlias']").val();
+  let model = div.find("input[name='inputModel']").val();
+  let location = div.find("input[name='inputLocation']").val();
+  let ip = div.find("input[name='inputIp']").val();
 
-    // oculta el modal de forma programática
-    div.modal("hide");
+  // oculta el modal de forma programática
+  div.modal("hide");
 
-    // envía la petición
-    let o = {alias, model, location, ip};
-    Pmgr.addPrinter(o).then(d => {
-      if (d) {
-        // limpia el modal (para que no vuelva a aparecer con esos datos)
-        div.find("form")[0].reset();
-        // muestra nuevo estado de aplicación
-        update();
-        // todo añadido bien - enhorabuena!
-        $("#addImpresora").show().fadeOut(2000);
-      } else {
-        // el servidor ha dado fallo! - usad un diálogo para explicar qué ha fallado
-        $("#addImpresoraError").show().fadeOut(2000);
-      }
-    })
-    // esto evita que el formulario se envíe de la forma tradicional
-    return false;
+  // envía la petición
+  let o = { alias, model, location, ip };
+  Pmgr.addPrinter(o).then(d => {
+    if (d) {
+      // limpia el modal (para que no vuelva a aparecer con esos datos)
+      div.find("form")[0].reset();
+      // muestra nuevo estado de aplicación
+      update();
+      // todo añadido bien - enhorabuena!
+      $("#addImpresora").show().fadeOut(3000);
+    } else {
+      // el servidor ha dado fallo! - usad un diálogo para explicar qué ha fallado
+      $("#addImpresoraError").show().fadeOut(3000);
+    }
+  })
+  // esto evita que el formulario se envíe de la forma tradicional
+  return false;
 })
 
 // PROFE - ejemplo de validación para ip
-$('input[name="inputIp"]').on('input propertychange paste', e =>  {
+$('input[name="inputIp"]').on('input propertychange paste', e => {
   const o = $(e.target);
-  const ok = o.val() === "" || validateIp(o.val()); 
+  const ok = o.val() === "" || validateIp(o.val());
   o[0].setCustomValidity(ok ? "" : "Eso no es una IP."); // PROFE - mejor algo menos agresivo
 });
+
 
 //Eliminar Impresoras
 document.getElementById('eliminarImpresora')//hace referencia modal 'eliminarImpresora'
@@ -363,8 +364,6 @@ document.getElementById('eliminarImpresora')//hace referencia modal 'eliminarImp
     const button = e.target;
     var idPrinter;
     if (button.name == 'btnRmPrinter') {
-
-      //debugger;
       $('input[name=select_impresoras]:checked').each(function () {
         var row = $(this).closest("tr")[0];
         var printer;
@@ -375,15 +374,8 @@ document.getElementById('eliminarImpresora')//hace referencia modal 'eliminarImp
         }
         Pmgr.rmPrinter(printer.id).then(update);
       });
-
-      var x = document.getElementById("rmImpresora")
-      x.open = true;
-      setTimeout(function () {
-        x.open = false;
-      }, 3000);
-
+      $("#rmImpresora").show().fadeOut(3000);
     }
-
   });
 
 
@@ -423,16 +415,10 @@ $('#trPrinters').on('click', 'button', e => {
     button.textContent = '🖉';
     button.name = 'editModel';
 
-
     printer.model = input.value;
-    Pmgr.setPrinter(printer);
+    Pmgr.setPrinter(printer).then(update);
 
-    var x = document.getElementById("modImpresora")
-
-    x.open = true;
-    setTimeout(function () {
-      x.open = false;
-    }, 2000);
+    $("#modImpresora").show().fadeOut(3000);
 
   }
 
@@ -457,13 +443,9 @@ $('#trPrinters').on('click', 'button', e => {
     button.name = 'editLocation';
 
     printer.location = input.value;
-    Pmgr.setPrinter(printer);
+    Pmgr.setPrinter(printer).then(update);
 
-    var x = document.getElementById("modImpresora")
-    x.open = true;
-    setTimeout(function () {
-      x.open = false;
-    }, 2000);
+    $("#modImpresora").show().fadeOut(3000);
   }
 
   else if (button.name == 'editIP') {
@@ -488,13 +470,9 @@ $('#trPrinters').on('click', 'button', e => {
       button.textContent = '🖉';
       button.name = 'editIP';
       printer.ip = input.value;
-      Pmgr.setPrinter(printer);
+      Pmgr.setPrinter(printer).then(update);;
 
-      var x = document.getElementById("modImpresora")
-      x.open = true;
-      setTimeout(function () {
-        x.open = false;
-      }, 2000);
+      $("#modImpresora").show().fadeOut(3000);
 
     }
     else {
@@ -514,9 +492,6 @@ $('#trPrinters').on('click', 'button', e => {
 
 //--------------------------------------------------------Trabajos--------------------------------------------------------->
 
-
-
-
 //Agregar Trabajos
 document.getElementById('añadirTrabajo')//hace referencia al modal añadirTrabajo
   .addEventListener('click', function (e) {
@@ -528,13 +503,9 @@ document.getElementById('añadirTrabajo')//hace referencia al modal añadirTraba
       var owner = document.getElementById("inputOwner").value;
       var printer1 = Pmgr.globalState.printers[0].id;
       var job = new Pmgr.Job(1, printer1, owner, nameJob);
-      Pmgr.addJob(job);
+      Pmgr.addJob(job).then(update);
 
-      var x = document.getElementById("addJob")
-      x.open = true;
-      setTimeout(function () {
-        x.open = false;
-      }, 3000);
+      $("#addJob").show().fadeOut(3000);
 
     }
   })
@@ -558,14 +529,9 @@ document.getElementById('eliminarTrabajos')//hace referencia modal 'eliminar Tra
           if (Pmgr.globalState.jobs[i].id == idJob)
             job = Pmgr.globalState.jobs[i];
         }
-        Pmgr.rmJob(job.id);
+        Pmgr.rmJob(job.id).then(update);
 
-        var x = document.getElementById("rmJob")
-        x.open = true;
-        setTimeout(function () {
-          x.open = false;
-        }, 3000);
-
+        $("#rmJob").show().fadeOut(3000);
       });
     }
   });
@@ -607,17 +573,10 @@ document.getElementById('trJobs').addEventListener('click', function (e) {//hace
     button.name = 'editOwner';
 
     job.owner = input.value;
-    Pmgr.setJob(job);
+    Pmgr.setJob(job).then(update);
 
-    var x = document.getElementById("modJob")
-
-    x.open = true;
-    setTimeout(function () {
-      x.open = false;
-    }, 2000);
-
+    $("#modJob").show().fadeOut(3000);
   }
-
 })
 
 
@@ -632,39 +591,41 @@ document.getElementById('añadirGrupo')//hace referencia modal 'añadir grupos'
     var nombre = document.getElementById("inputAddPrinter").value;
     if (button.name == 'addGroup') {
       var group = new Pmgr.Group(1, nombre);
-      Pmgr.addGroup(group);
+      Pmgr.addGroup(group).then(update);
 
-      var x = document.getElementById("addGroup")
-      x.open = true;
-      setTimeout(function () {
-        x.open = false;
-      }, 3000);
+      $("#addGroup").show().fadeOut(3000);
     }
   })
 
 
 //Modificar grupo
-var b;//var que uso para guardar el nombre del grupo
-
 document.getElementById('trGroups')//hace referencia a la tabla de grupos
   .addEventListener('click', function (e) {
 
     const button = e.target;
     const celda = button.parentNode;
+  
+    var group;
+    //var idGroup =celda.parentElement.innerText;
+    var idGroup = celda.parentElement.parentElement.parentElement.childNodes[3].innerText;
+    
+
+    for (let i = 0; i < Pmgr.globalState.groups.length; i++) {
+      if (Pmgr.globalState.groups[i].id == idGroup)
+        group = Pmgr.globalState.groups[i];
+    }
 
     if (button.name == 'edit') {
       const span = celda.firstElementChild;
       const input = document.createElement('input');
       input.type = 'text';
       input.value = span.textContent;
-
-      b = input.value.trim();
       celda.insertBefore(input, span);
       celda.removeChild(span);
       button.textContent = '💾';
       button.name = 'save';
-
     }
+
     else if (button.name == 'save') {
       const input = celda.firstElementChild;
       const span = document.createElement('span');
@@ -677,23 +638,11 @@ document.getElementById('trGroups')//hace referencia a la tabla de grupos
       button.textContent = '🖉';
       button.name = 'edit';
 
-      var group;
-
-      for (let i = 0; i < Pmgr.globalState.groups.length; i++) {
-        if (Pmgr.globalState.groups[i].name == b)
-          group = Pmgr.globalState.groups[i];
-      }
-
       group.name = input.value;
-      Pmgr.setGroup(group);
+      Pmgr.setGroup(group).then(update);
 
-      var x = document.getElementById("modGroup");
-      x.open = true;
-      setTimeout(function () {
-        x.open = false;
-      }, 3000);
+      $("#modGroup").show().fadeOut(3000);
     }
-
   })
 
 
@@ -705,7 +654,6 @@ document.getElementById('eliminarGrupos')//hace referencia modal 'eliminar grupo
     var idGroup;
     if (button.name == 'delete') {//hace referencia boton del modal "Aceptar"
 
-
       $('input[name=select_grupos]:checked').each(function () {
         var row = $(this).closest("tr")[0];
         var group;
@@ -716,14 +664,10 @@ document.getElementById('eliminarGrupos')//hace referencia modal 'eliminar grupo
         }
 
         Pmgr.rmGroup(group.id).then(update);
-        //debugger;
+
       });
 
-      var x = document.getElementById("rmGroup")
-      x.open = true;
-      setTimeout(function () {
-        x.open = false;
-      }, 2000);
+      $("#rmGroup").show().fadeOut(3000);
     }
   });
 
