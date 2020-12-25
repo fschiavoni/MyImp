@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 Raul Benavente Romero
 Luis Alberto Jaramillo Pulido
@@ -5,4 +6,13 @@ FACUNDO Schiavoni Barreyro
 Gonzalo Hernández Hernández
 
 usuario :g4
+=======
+
+Raul Benavente Romero
+Luis Alberto Jaramillo Pulido
+FACUNDO Schiavoni Barreyro
+Gonzalo Hernández Hernández
+
+usuario :g4
+>>>>>>> d7791e6970173e2247fba5f442321feda3837ff6
 password:grupo 4
